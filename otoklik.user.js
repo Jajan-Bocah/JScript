@@ -5,7 +5,7 @@
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
-// @updateURL    https://gist.github.com/jajanbocah/161adfbcdf2ff417338b5693d9c91693/raw/5cd0bcf73acf7d94aec8d44471d9c2c51f451b5f/otoklik.user.js
+// @updateURL    https://github.com/jajanbocah/otoklik/raw/master/otoklik.user.js
 
 // @match        *://welcome.indihome.co.id/landing-page
 // @match        *://*.hexafile.net/*
