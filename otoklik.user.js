@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.2.9
+// @version      1.3.0
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -70,7 +70,7 @@ $(document).ready(function() {
     } else if(document.documentURI.match(/zxcfiles.xyz/g )){
             link = $("div.btn-group").find("a").attr("href");
     } else if(document.documentURI.match(/mediafire.com\/file\//g )){
-        link = $("div.download_link").find("a").attr("href");
+        link = $("div.download_link").find("a.input").attr("href");
     }
 
     setTimeout(function(){
