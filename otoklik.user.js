@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.0
+// @version      1.3.1
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
 // @updateURL    https://github.com/jajanbocah/otoklik/raw/master/otoklik.user.js
 
 // @match        *://welcome.indihome.co.id/landing-page
+
 // @match        *://*.hexafile.net/*
 
 // @match        *://*.tetew.info/*
@@ -17,6 +18,8 @@
 
 // @match        *://davinsurance.com/*
 
+// @match        *://ngantukberat.me/*
+
 // @match        *://*.safelinkreviewx.com/*/cost/*
 
 // @match        *://*.zippyshare.com/v/*
@@ -24,6 +27,8 @@
 // @match        *://*.zxcfiles.com/download
 // @match        *://*.zxcfiles.xyz/*
 // @match        *://*.mediafire.com/file/*
+// @match        *://elsfile.org/*
+
 // @grant        GM_xmlhttpRequest
 // @run-at       document-start
 // @require      http://code.jquery.com/jquery-latest.js
@@ -58,6 +63,13 @@ $(document).ready(function() {
              stt = str[10].text.split("changeLink(){var a='")[1].split("';");
              link = stt[0];
         }
+    } else if(document.documentURI.match(/ngantukberat.me\//g)){
+        if(document.documentURI.match(/\?go=/g)){
+            tipe='klik';
+            link = $("input.btn-primary");
+        } else {
+             link = $("div#wpsafe-link").find("a").attr("href");
+        }
     } else if(document.documentURI.match(/safelinkreviewx.com/g )){
         var a = $("div.button").attr("onclick").replace("window.open('", "").replace("&pop=2', '_blank');", "");
         link = a.replace("decrypt2.safe", "decrypt.safe");
@@ -71,21 +83,39 @@ $(document).ready(function() {
             link = $("div.btn-group").find("a").attr("href");
     } else if(document.documentURI.match(/mediafire.com\/file\//g )){
         link = $("div.download_link").find("a.input").attr("href");
+    } else if(document.documentURI.match(/elsfile.org\//g )){
+        tipe = 'klik';
+        if($("input#btn_download").length){
+            anu = 1;
+            link = $("input#btn_download");
+        }
     }
 
-    setTimeout(function(){
-        if(tipe == 'klik'){
-            klik(link);
-        } else {
-            mangkat(link);
-        }
-    }, (anu * 1000));
-
+    if(link!==""){
+        setTimeout(function(){
+            if(tipe == 'klik'){
+                klik(link);
+            } else if(tipe == 'submit'){
+                submit(link);
+            } else mangkat(link);
+        }, (anu * 1000));
+    }
 });
 
 function klik(url){
+    var jdul;
     if(url.click()){
-        document.title = 'Mencet Tombol '+ url.text();
+        if( url.text().length > 0 ){
+            jdul = url.text();
+        } else jdul = url;
+        document.title = 'Mencet Tombol '+ jdul;
+    } else {
+        document.title = jdl;
+    }
+}
+function submit(btn){
+    if(btn.submit()){
+        document.title = 'Submit Form '+ btn.text();
     } else {
         document.title = jdl;
     }
