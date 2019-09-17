@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.1
+// @version      1.3.2
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -88,6 +88,19 @@ $(document).ready(function() {
         if($("input#btn_download").length){
             anu = 1;
             link = $("input#btn_download");
+        }
+        else{
+            var aidi = document.documentURI.replace("http://elsfile.org/", "");
+            $("#frmdlcenter").html(
+                '<form method="POST">'+
+                '<input type="hidden" name="op" value="download1">'+
+                '<input type="hidden" name="usr_login" value="C">'+
+                '<input type="hidden" name="id" value="'+ aidi +'">'+
+                '<input type="hidden" name="referer" value="q">'+
+                '<input type="submit" name="method_free" value="Free Download" style="background-color:#3f3f3f !important;color:#f1f1f1 !important;font-weight:bold !important;">'+
+                '</form>'
+            );
+            link = $("input[name=method_free]");
         }
     }
 
