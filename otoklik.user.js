@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.3
+// @version      1.3.4
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -43,9 +43,15 @@ $(document).ready(function() {
         link = $("div.background-box").find("a").attr("href");
     // Url Shorter
     } else if(domen.match(/hexafile.net/g)){
-        str = document.getElementsByTagName('script');
-        stt = str[6].text.split('window.location="')[1].split('";');
-        link = stt[0];
+        if(document.documentURI.match(/v1\./g)){
+            str = document.getElementsByTagName('script');
+            stt = str[18].text.split('="')[1].split('",');
+            link = stt[0];
+        } else {
+            str = document.getElementsByTagName('script');
+            stt = str[6].text.split('window.location="')[1].split('";');
+            link = stt[0];
+        }
     } else if(domen.match(/tetew.info|greget.space|siherp.com|ahexa.com/g)){
         link = $("div.download-link").find("a").attr("href");
     } else if(domen.match(/anjay.info/g)){
