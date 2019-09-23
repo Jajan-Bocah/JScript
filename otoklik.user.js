@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.4
+// @version      1.3.5
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -30,6 +30,7 @@
 // @match        *://*.mediafire.com/file/*
 // @match        *://elsfile.org/*
 
+// @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
 // @run-at       document-start
 // @require      http://code.jquery.com/jquery-latest.js
@@ -79,7 +80,7 @@ $(document).ready(function() {
         link = a.replace("decrypt2.safe", "decrypt.safe");
     // Situs Download
     } else if(domen = domen.match(/zippyshare.com/g )){
-        link = $("a#dlbutton").attr("href");
+        if($("a#dlbutton").length){ link = $("a#dlbutton").attr("href"); }
     } else if(document.documentURI.match(/drive.google.com\/file\/d\//g)){
             a = document.documentURI.replace("/file/d/", "/uc?id=");
             b = a.split("/view");
