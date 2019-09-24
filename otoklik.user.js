@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.5
+// @version      1.3.6
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -10,6 +10,7 @@
 // @match        *://welcome.indihome.co.id/landing-page
 
 // @match        *://*.hexafile.net/*
+// @match        *://*.wahibirawan.com/*
 
 // @match        *://*.tetew.info/*
 // @match        *://*.greget.space/*
@@ -32,6 +33,7 @@
 
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
+// @grant        GM_addStyle
 // @run-at       document-start
 // @require      http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
@@ -53,6 +55,9 @@ $(document).ready(function() {
             stt = str[6].text.split('window.location="')[1].split('";');
             link = stt[0];
         }
+    } else if(document.documentURI.match(/wahibirawan.com\//g)){
+        tipe = 'klik';
+        link = $("div#showlink");
     } else if(domen.match(/tetew.info|greget.space|siherp.com|ahexa.com/g)){
         link = $("div.download-link").find("a").attr("href");
     } else if(domen.match(/anjay.info/g)){
@@ -99,7 +104,7 @@ $(document).ready(function() {
     } else if(document.documentURI.match(/elsfile.org\//g )){
         tipe = 'klik';
         if($("input#btn_download").length){
-            anu = 1;
+            //anu = 1;
             link = $("input#btn_download");
         }
         else{
