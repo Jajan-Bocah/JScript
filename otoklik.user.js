@@ -104,7 +104,7 @@ $(document).ready(function() {
     } else if(document.documentURI.match(/elsfile.org\//g )){
         tipe = 'klik';
         if($("input#btn_download").length){
-            //anu = 1;
+            jdl = document.getElementById("btn_download").value;
             link = $("input#btn_download");
         }
         else{
@@ -118,6 +118,7 @@ $(document).ready(function() {
                 '<input type="submit" name="method_free" value="Free Download" style="background-color:#3f3f3f !important;color:#f1f1f1 !important;font-weight:bold !important;">'+
                 '</form>'
             );
+            jdl = document.getElementsByName("method_free")[0].value;
             link = $("input[name=method_free]");
         }
     }
@@ -125,30 +126,38 @@ $(document).ready(function() {
     if(link!==""){
         setTimeout(function(){
             if(tipe == 'klik'){
-                klik(link);
+                klik(link, jdl);
             } else if(tipe == 'submit'){
-                submit(link);
+                submit(link, jdl);
             } else mangkat(link);
         }, (anu * 1000));
     }
 });
 
-function klik(url){
+function klik(url,tbl){
     var jdul;
     if(url.click()){
         if( url.text().length > 0 ){
             jdul = url.text();
-        } else jdul = url;
-        document.title = 'Mencet Tombol '+ jdul;
+        } else {
+            if(tbl!==""){ jdul = tbl }else jdul = url
+        }
+        document.title = 'Mencet Tombol "' + jdul + '"';
     } else {
-        document.title = jdl;
+        document.title = url;
     }
 }
-function submit(btn){
+function submit(btn,tbl){
+    var jdul;
     if(btn.submit()){
-        document.title = 'Submit Form '+ btn.text();
+        if( tbl.text().length > 0 ){
+            jdul = tbl.text();
+        } else {
+            if(tbl!==""){ jdul = tbl }else jdul = btn;
+            document.title = 'Submit Form "'+ jdul + '"';
+        }
     } else {
-        document.title = jdl;
+        document.title = btn;
     }
 }
 function mangkat(url){
