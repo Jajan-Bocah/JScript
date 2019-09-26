@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.6
+// @version      1.3.7
 // @description  Auto Klik Donlotan wakakaka
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -30,6 +30,8 @@
 // @match        *://*.zxcfiles.xyz/*
 // @match        *://*.mediafire.com/file/*
 // @match        *://elsfile.org/*
+// @match        *://*.clicknupload.org/*
+// @match        *://*.racaty.com/*
 
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
@@ -38,7 +40,7 @@
 // @require      http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
 
-var fulldomen,domen, link, anu = 0, tipe, mod, jdl;
+var fulldomen,domen, link, anu = 0, tipe, mod, jdl, aidi;
 var str, stt, a, b ,c;
 $(document).ready(function() {
     domen = document.documentURI;
@@ -108,7 +110,7 @@ $(document).ready(function() {
             link = $("input#btn_download");
         }
         else{
-            var aidi = document.documentURI.replace("http://elsfile.org/", "");
+            aidi = document.documentURI.replace("http://elsfile.org/", "");
             $("#frmdlcenter").html(
                 '<form method="POST">'+
                 '<input type="hidden" name="op" value="download1">'+
@@ -120,6 +122,39 @@ $(document).ready(function() {
             );
             jdl = document.getElementsByName("method_free")[0].value;
             link = $("input[name=method_free]");
+        }
+    } else if(document.documentURI.match(/clicknupload.org\//g )){
+        if($("span.downloadbtn").length){
+            tipe = 'klik';
+            jdl = document.getElementsByClassName('downloadbtn')[1].textContent;
+            link = $("span.downloadbtn");
+        } else if($("div.download").find('downloadbtn').find('span').context.activeElement.innerText.length > 0){
+            tipe = '';
+            jdl = $("div.download").find('downloadbtn').find('span').context.activeElement.innerText
+            link = $("button.downloadbtn").attr('onclick').replace("window.open('", "").replace("');" + '"', "");
+        }
+        else{
+            tipe = 'klik';
+            aidi = document.documentURI.replace("http://clicknupload.org/", "").replace("https://clicknupload.org/", "");
+            $("div#download").html(
+                '<form method="POST" action="">' +
+                '<input type="hidden" name="op" value="download1">' +
+                '<input type="hidden" name="usr_login" value="">' +
+                '<input type="hidden" name="id" value="'+ aidi +'">' +
+                '<div class="regular"><i class="far fa-tachometer-alt-slow"></i> <input type="submit" id="method_free" name="method_free" value="Free Download >>"></div>' +
+                '</form>'
+            );
+            jdl = document.getElementsByName("method_free")[0].value;
+            link = $("input[name=method_free]");
+        }
+    } else if(document.documentURI.match(/racaty.com\//g )){
+        var atext = $("div.after").text();
+        if( atext !== '' ){
+            tipe = 'klik';
+            link = $("div.after");
+        } else {
+            tipe = '';
+            link = $("div#DIV_1.actions").find("a").attr("href");
         }
     }
 
