@@ -33,6 +33,7 @@
 // @match        *://*.clicknupload.org/*
 // @match        *://*.racaty.com/*
 
+// @license      GNU GPLv3
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
