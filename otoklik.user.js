@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.7
-// @description  Auto Klik Donlotan wakakaka
+// @version      1.3.8
+// @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
 // @updateURL    https://github.com/jajanbocah/otoklik/raw/master/otoklik.user.js
@@ -163,8 +163,8 @@ $(document).ready(function() {
         setTimeout(function(){
             if(tipe == 'klik'){
                 klik(link, jdl);
-            } else if(tipe == 'submit'){
-                submit(link, jdl);
+            } else if(tipe == 'sambit'){
+                sambit(link, jdl);
             } else mangkat(link);
         }, (anu * 1000));
     }
@@ -183,7 +183,7 @@ function klik(url,tbl){
         document.title = url;
     }
 }
-function submit(btn,tbl){
+function sambit(btn,tbl){
     var jdul;
     if(btn.submit()){
         if( tbl.text().length > 0 ){
