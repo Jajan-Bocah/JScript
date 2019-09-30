@@ -5,7 +5,7 @@
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
-// @updateURL    https://github.com/jajanbocah/JScript/raw/master/otoklik.user.js
+// @updateURL    https://github.com/jajanbocah/otoklik/raw/master/otoklik.user.js
 
 // @match        *://welcome.indihome.co.id/landing-page
 
@@ -74,11 +74,6 @@ $(document).ready(function() {
             str = getBy("Tag","script")[10].text
             link = (str.split("changeLink(){var a='")[1].split("';"))[0];
         }
-    } else if(document.documentURI.match(/ngantukberat.me\//g)){
-        if(document.documentURI.match(/\?go=/g)){
-            tipe='klik';
-            link = $("input.btn-primary");
-        } else link = getHref("div#wpsafe-link");
     } else if(document.documentURI.match(/ngantukberat.me\//g)){
         if(document.documentURI.match(/\?go=/g)){
             tipe='klik';
@@ -164,9 +159,7 @@ $(document).ready(function() {
             str = getBy("Tag","script")[18].text
             link = (str.split("btn-free' href='")[1].split("'>"))[0];
         }
-        else if($("div.buttonsare").length){
-            link = getHref("div.buttonsare", "a[title=Download]");
-        }
+        else if($("div.buttonsare").length){ link = getHref("div.buttonsare", "a[title=Download]"); }
     }
 
     if(link!==null){
