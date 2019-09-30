@@ -5,7 +5,7 @@
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
-// @updateURL    https://github.com/jajanbocah/otoklik/raw/master/otoklik.user.js
+// @updateURL    https://github.com/jajanbocah/JScript/raw/master/otoklik.user.js
 
 // @match        *://welcome.indihome.co.id/landing-page
 
