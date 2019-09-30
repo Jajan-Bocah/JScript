@@ -35,6 +35,7 @@
 // @match        *://*.clicknupload.org/*
 // @match        *://*.racaty.com/*
 // @match        *://*.letsupload.co/*
+// @match        *://*.uptobox.com/*
 
 // @license      GNU GPLv3
 // @grant        unsafeWindow
@@ -160,6 +161,18 @@ $(document).ready(function() {
             link = (str.split("btn-free' href='")[1].split("'>"))[0];
         }
         else if($("div.buttonsare").length){ link = getHref("div.buttonsare", "a[title=Download]"); }
+    } else if(document.documentURI.match(/uptobox.com\//g )){
+        if($("input.download-btn").length){
+            tipe = 'klik';
+            var a = $("input.download-btn").attr("class").replace("disabled", "enabled");
+            $("input.download-btn").attr("class", a);
+            jdl = $("input.download-btn").value;
+            link = $("input.download-btn");
+        }
+        else if($("a.big-button-green-flat.mt-4.mb-4").text().match(/start/)){
+            jdl = $("a.big-button-green-flat.mt-4.mb-4").text();
+            link = getHref("a.big-button-green-flat.mt-4.mb-4");
+        }
     }
 
     if(link!==null){
