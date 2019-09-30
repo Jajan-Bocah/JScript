@@ -44,15 +44,13 @@
 // @require      http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
 
-var link, anu = 0, tipe, jdl, aidi;
+var link = null, anu = 0, tipe, jdl, aidi;
 var str, atext, a, b ,c;
 $(document).ready(function() {
-    //Break Indihome :vv
     if(document.documentURI.match(/welcome.indihome.co.id/g)){
         link = getHref("div.background-box");
     // Url Shorter
-    }
-    else if(document.documentURI.match(/hexafile.net/g)){
+    } else if(document.documentURI.match(/hexafile.net/g)){
         if(document.documentURI.match(/v1\./g)){
             str = getBy("Tag","script")[18].text;
             link = (str.split('="')[1].split('",'))[0];
@@ -80,25 +78,20 @@ $(document).ready(function() {
         if(document.documentURI.match(/\?go=/g)){
             tipe='klik';
             link = $("input.btn-primary");
-        } else {
-             link = getHref("div#wpsafe-link");
-        }
+        } else link = getHref("div#wpsafe-link");
     } else if(document.documentURI.match(/ngantukberat.me\//g)){
         if(document.documentURI.match(/\?go=/g)){
             tipe='klik';
             link = $("input.btn-primary");
-        } else {
-             link = getHref("div#wpsafe-link");
-        }
+        } else link = getHref("div#wpsafe-link");
     } else if(document.documentURI.match(/ljutkeunvpn.blogspot.com\/p\//g )){
         a = document.documentURI.split("url=")[1];
         link = atob(a);
-    // Situs Donglot
+    // Situs Download
     }
     else if(document.documentURI.match(/zippyshare.com/g)){
-        if($("a#dlbutton").length){
-            link = getHref("a#dlbutton");
-        }
+        if($("a#dlbutton").length){ link = getHref("a#dlbutton"); }
+        else alert("file dihapus?");
     } else if(document.documentURI.match(/drive.google.com\/file\/d\//g)){
             a = document.documentURI.replace("/file/d/", "/uc?id=");
             b = (a.split("/view")[0].split("/edit"))[0];
@@ -176,7 +169,7 @@ $(document).ready(function() {
         }
     }
 
-    if(link!==""){
+    if(link!==null){
         setTimeout(function(){
             if(tipe == 'klik'){
                 klik(link, jdl);
