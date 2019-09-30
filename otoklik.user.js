@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://www.emm-emm.com/
-// @version      1.3.8
+// @version      1.3.9
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -23,6 +23,8 @@
 // @match        *://ngantukberat.me/*
 
 // @match        *://*.safelinkreviewx.com/*/cost/*
+
+// @match        *://*.ljutkeunvpn.blogspot.com/p/*
 
 // @match        *://*.zippyshare.com/v/*
 // @match        *://drive.google.com/file/d/*
@@ -83,9 +85,16 @@ $(document).ready(function() {
         } else {
              link = $("div#wpsafe-link").find("a").attr("href");
         }
-    } else if(document.documentURI.match(/safelinkreviewx.com/g )){
-        var a = $("div.button").attr("onclick").replace("window.open('", "").replace("&pop=2', '_blank');", "");
-        link = a.replace("decrypt2.safe", "decrypt.safe");
+    } else if(document.documentURI.match(/ngantukberat.me\//g)){
+        if(document.documentURI.match(/\?go=/g)){
+            tipe='klik';
+            link = $("input.btn-primary");
+        } else {
+             link = $("div#wpsafe-link").find("a").attr("href");
+        }
+    } else if(document.documentURI.match(/ljutkeunvpn.blogspot.com\/p\//g )){
+        a = document.documentURI.split("url=")[1];
+        link = atob(a);
     // Situs Download
     } else if(domen = domen.match(/zippyshare.com/g )){
         if($("a#dlbutton").length){ link = $("a#dlbutton").attr("href"); }
