@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.10
+// @version      1.3.11
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -37,6 +37,7 @@
 // @match        *://*.racaty.com/*
 // @match        *://*.letsupload.co/*
 // @match        *://*.uptobox.com/*
+// @match        *://*.mp4upload.com/*
 
 // @license      GNU GPLv3
 // @grant        unsafeWindow
@@ -131,12 +132,7 @@ $(document).ready(function() {
             tipe = 'klik';
             jdl = getBy("Class", "downloadbtn")[1].textContent;
             link = $("span.downloadbtn");
-        } else if($("div.download").find('downloadbtn').find('span').context.activeElement.innerText.length > 0){
-            tipe = '';
-            jdl = $("div.download").find('downloadbtn').find('span').context.activeElement.innerText
-            link = $("button.downloadbtn").attr('onclick').replace("window.open('", "").replace("');" + '"', "");
-        }
-        else{
+        } else if($("input[name=method_free]").length){
             tipe = 'klik';
             aidi = document.documentURI.split("/")[3];
             $("div#download").html(
@@ -149,6 +145,10 @@ $(document).ready(function() {
             );
             jdl = getBy("Name","method_free")[0].value;
             link = $("input[name=method_free]");
+        } else if($("div.download").find('downloadbtn').find('span').context.activeElement.innerText.length > 0){
+            tipe = '';
+            jdl = $("div.download").find('downloadbtn').find('span').context.activeElement.innerText
+            link = $("button.downloadbtn").attr('onclick').replace("window.open('", "").replace("');" + '"', "");
         }
     } else if(document.documentURI.match(/racaty.com\//g )){
         atext = $("div.after").text();
@@ -171,11 +171,16 @@ $(document).ready(function() {
             var a = $("input.download-btn").attr("class").replace("disabled", "enabled");
             $("input.download-btn").attr("class", a);
             jdl = $("input.download-btn").value;
-            link = $("input.download-btn");
+            link = $("input.download-btn.big-button-green-flat.mt-4.mb-4.enabled");
         }
         else if($("a.big-button-green-flat.mt-4.mb-4").text().match(/start/)){
             jdl = $("a.big-button-green-flat.mt-4.mb-4").text();
             link = getHref("a.big-button-green-flat.mt-4.mb-4");
+        }
+    } else if(document.documentURI.match(/mp4upload.com\//g )){
+        if($("span.btext").length){
+            tipe = 'klik';
+            link = $("span.btext");
         }
     }
 
