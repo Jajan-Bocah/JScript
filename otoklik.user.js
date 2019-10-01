@@ -9,6 +9,7 @@
 
 // @match        *://welcome.indihome.co.id/landing-page
 
+// @match        *://*.oploverz.in/*
 // @match        *://*.hexafile.net/*
 // @match        *://*.wahibirawan.com/*
 
@@ -46,10 +47,13 @@
 // ==/UserScript==
 
 var link = null, anu = 0, tipe, jdl, aidi;
-var str, atext, a, b ,c;
+var str, atext, dlv, a, b ,c;
 $(document).ready(function() {
     if(document.documentURI.match(/welcome.indihome.co.id/g)){
         link = getHref("div.background-box");
+    } else if(document.documentURI.match(/oploverz.in\//g)){
+        tipe = 'klik';
+        if($("#close-stream-ads").length){ dlv = "Stream"; jdl = document.title; link = $("#close-stream-ads"); }
     // Url Shorter
     } else if(document.documentURI.match(/hexafile.net/g)){
         if(document.documentURI.match(/v1\./g)){
@@ -178,7 +182,7 @@ $(document).ready(function() {
     if(link!==null){
         setTimeout(function(){
             if(tipe == 'klik'){
-                klik(link, jdl);
+                klik(link, jdl, dlv);
             } else if(tipe == 'sambit'){
                 sambit(link, jdl);
             } else mangkat(link);
@@ -186,18 +190,16 @@ $(document).ready(function() {
     }
 });
 
-function klik(url,tbl){
+function klik(url,tbl,tp="dl"){
     var jdul;
     if(url.click()){
-        if( url.text().length > 0 ){
-            jdul = url.text();
-        } else {
-            if(tbl!==""){ jdul = tbl }else jdul = url
+        if(tp!=="dl"){ document.title = tbl; }
+        else {
+            if( url.text().length > 0 ){ jdul = url.text(); }
+            else{ if(tbl!==""){ jdul = tbl }else jdul = url }
+            document.title = 'Mencet Tombol "' + jdul + '"';
         }
-        document.title = 'Mencet Tombol "' + jdul + '"';
-    } else {
-        document.title = url;
-    }
+    }else document.title = url;
 }
 function sambit(btn,tbl){
     var jdul;
