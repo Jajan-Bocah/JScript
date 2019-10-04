@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.11
+// @version      1.3.12
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
 // @updateURL    https://github.com/jajanbocah/JScript/raw/master/otoklik.user.js
 
 // @match        *://welcome.indihome.co.id/landing-page
+
+// @match        *://*.kusonime.com/*
 
 // @match        *://*.oploverz.in/*
 // @match        *://*.hexafile.net/*
@@ -19,20 +21,20 @@
 // @match        *://*.ahexa.com/*
 // @match        *://*.anjay.info/*
 
-// @match        *://davinsurance.com/*
+// @match        *://*.davinsurance.com/*
 
-// @match        *://ngantukberat.me/*
+// @match        *://*.ngantukberat.me/*
 
 // @match        *://*.safelinkreviewx.com/*/cost/*
 
 // @match        *://*.ljutkeunvpn.blogspot.com/p/*
 
 // @match        *://*.zippyshare.com/v/*
-// @match        *://drive.google.com/file/d/*
+// @match        *://drive.google.com/*
 // @match        *://*.zxcfiles.com/download
 // @match        *://*.zxcfiles.xyz/*
 // @match        *://*.mediafire.com/file/*
-// @match        *://elsfile.org/*
+// @match        *://*.elsfile.org/*
 // @match        *://*.clicknupload.org/*
 // @match        *://*.racaty.com/*
 // @match        *://*.letsupload.co/*
@@ -43,6 +45,7 @@
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
+// @grant        GM_setStyle
 // @run-at       document-start
 // @require      http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
@@ -55,10 +58,18 @@ $(document).ready(function() {
     } else if(document.documentURI.match(/oploverz.in\//g)){
         tipe = 'klik';
         if($("#close-stream-ads").length){ dlv = "Stream"; jdl = document.title; link = $("#close-stream-ads"); }
+    } else if(document.documentURI.match(/kusonime.com\//g)){
+        $("div.smokeurl").find("a").each(function() {
+            str = decodeURIComponent($(this).attr("href")).split("url=")[1].split("&type")[0];
+            $(this).attr("href", str);
+        });
     // Url Shorter
     } else if(document.documentURI.match(/hexafile.net/g)){
         if(document.documentURI.match(/v1\./g)){
             str = getBy("Tag","script")[18].text;
+            link = (str.split('="')[1].split('",'))[0];
+        } else if(document.documentURI.match(/v4\./g)){
+            str = getBy("Tag","script")[19].text;
             link = (str.split('="')[1].split('",'))[0];
         } else {
             str = getBy("Tag","script")[6].text
@@ -87,16 +98,20 @@ $(document).ready(function() {
         } else link = getHref("div#wpsafe-link");
     } else if(document.documentURI.match(/ljutkeunvpn.blogspot.com\/p\//g )){
         a = document.documentURI.split("url=")[1];
-        link = atob(a);
+        link = atob(a).split("?")[1];
     // Situs Download
     }
     else if(document.documentURI.match(/zippyshare.com/g)){
         if($("a#dlbutton").length){ link = getHref("a#dlbutton"); }
         else alert("file dihapus?");
-    } else if(document.documentURI.match(/drive.google.com\/file\/d\//g)){
+    } else if(document.documentURI.match(/drive.google.com/g)){
+        if(document.documentURI.match(/\/uc\?/) || document.documentURI.match(/export/)){
+            if( $("a#uc-download-link").length ){ link = $("a#uc-download-link").attr("href"); }
+        } else {
             a = document.documentURI.replace("/file/d/", "/uc?id=");
             b = (a.split("/view")[0].split("/edit"))[0];
             link = b + "&export=download";
+        }
     } else if(document.documentURI.match(/zxcfiles.com/g )){
         atext = $("span#download").text();
         if( atext == '' ){
