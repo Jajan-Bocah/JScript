@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.12
+// @version      1.3.13
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -60,12 +60,14 @@ $(document).ready(function() {
         if($("#close-stream-ads").length){ dlv = "Stream"; jdl = document.title; link = $("#close-stream-ads"); }
     } else if(document.documentURI.match(/kusonime.com\//g)){
         $("div.smokeurl").find("a").each(function() {
-            str = decodeURIComponent($(this).attr("href")).split("url=")[1].split("&type")[0];
+            if( $(this).attr("href").match(/kepoow.me/g) ) {
+               str = atob( decodeURIComponent($(this).attr("href")).split("r=")[1] );
+            }else str = decodeURIComponent($(this).attr("href")).split("url=")[1].split("&type")[0];
             $(this).attr("href", str);
         });
     // Url Shorter
     } else if(document.documentURI.match(/hexafile.net/g)){
-        if(document.documentURI.match(/v1\./g)){
+        if(document.documentURI.match(/(v1|v3)\./g)){
             str = getBy("Tag","script")[18].text;
             link = (str.split('="')[1].split('",'))[0];
         } else if(document.documentURI.match(/v4\./g)){
