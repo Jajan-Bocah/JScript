@@ -41,7 +41,7 @@
 // @match        *://*.uptobox.com/*
 // @match        *://*.mp4upload.com/*
 
-// @license      GNU GPLv3
+// @license      GNU General Public License v3.0 or later
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
@@ -58,6 +58,7 @@ $(document).ready(function() {
     } else if(document.documentURI.match(/oploverz.in\//g)){
         tipe = 'klik';
         if($("#close-stream-ads").length){ dlv = "Stream"; jdl = document.title; link = $("#close-stream-ads"); }
+        if($("#btm_banner").length){ $("#btm_banner").remove(); }
     } else if(document.documentURI.match(/kusonime.com\//g)){
         $("div.smokeurl").find("a").each(function() {
             if( $(this).attr("href").match(/kepoow.me/g) ) {
