@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.13
+// @version      1.3.14
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -63,7 +63,7 @@ $(document).ready(function() {
         $("div.smokeurl").find("a").each(function() {
             if( $(this).attr("href").match(/kepoow.me/g) ) {
                str = atob( decodeURIComponent($(this).attr("href")).split("r=")[1] );
-            }else str = decodeURIComponent($(this).attr("href")).split("url=")[1].split("&type")[0];
+            }else{ str = decodeURIComponent($(this).attr("href")).split("url=")[1].split("&type")[0]; }
             $(this).attr("href", str);
         });
     // Url Shorter
