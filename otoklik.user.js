@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.14
+// @version      1.3.15
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -13,7 +13,7 @@
 
 // @match        *://*.oploverz.in/*
 // @match        *://*.hexafile.net/*
-// @match        *://*.wahibirawan.com/*
+// @match        *://*.travellinginfos.com/*
 
 // @match        *://*.tetew.info/*
 // @match        *://*.greget.space/*
@@ -57,6 +57,12 @@ $(document).ready(function() {
         link = getHref("div.background-box");
     } else if(document.documentURI.match(/oploverz.in\//g)){
         tipe = 'klik';
+        $("div.list-download").find("a").each(function(){
+            if( $(this).attr("href").match(/travellinginfos.com\/\?r=/g) ) {
+                str = atob( $(this).attr("href").split("r=")[1] );
+                $(this).attr("href", str);
+            }
+        });
         if($("#close-stream-ads").length){ dlv = "Stream"; jdl = document.title; link = $("#close-stream-ads"); }
         if($("#btm_banner").length){ $("#btm_banner").remove(); }
     } else if(document.documentURI.match(/kusonime.com\//g)){
@@ -78,9 +84,10 @@ $(document).ready(function() {
             str = getBy("Tag","script")[6].text
             link = (str.split('window.location="')[1].split('";'))[0];
         }
-    } else if(document.documentURI.match(/wahibirawan.com\//g)){
-        tipe = 'klik';
-        link = $("div#showlink");
+    } else if(document.documentURI.match(/(travellinginfos.com)\/*\//g)){
+        if(document.documentURI.match(/\?r=/g)){
+            link = atob(decodeURIComponent(document.documentURI.split('r=')[1]));
+        }
     } else if(document.documentURI.match(/tetew.info|greget.space|siherp.com|ahexa.com/g)){
         link = getHref("div.download-link");
     } else if(document.documentURI.match(/anjay.info/g)){
