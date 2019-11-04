@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.16
+// @version      1.3.17
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -99,7 +99,7 @@ $(document).ready(function () {
             str = getBy("Tag", "script")[6].text;
             link = (str.split('window.location="')[1].split('";'))[0];
         }
-    } else if (document.documentURI.match(/(travellinginfos.com|ljutkeunvpn.blogspot.com\/p)\/*\//g)) {
+    } else if (document.documentURI.match(/(travellinginfos.com|ljutkeunvpn.blogspot.com\/p\/)/g)) {
         if (document.documentURI.match(/\?r=/g)) {
             link = atob(document.documentURI.split('r=')[1]);
         } else if (document.documentURI.match(/\?url=/g)) {
@@ -150,7 +150,7 @@ $(document).ready(function () {
             if ($("a#uc-download-link").length) {
                 link = $("a#uc-download-link").attr("href");
             }
-        } else {
+        } else if (document.documentURI.match(/\/file\/d\//)) {
             a = document.documentURI.replace("/file/d/", "/uc?id=");
             b = (a.split("/view")[0].split("/edit"))[0];
             link = b + "&export=download";
