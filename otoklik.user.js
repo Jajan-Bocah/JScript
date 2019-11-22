@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.17
+// @version      1.3.18
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -15,6 +15,7 @@
 // @match        *://*.oploverz.in/*
 // @match        *://*.hexafile.net/*
 // @match        *://*.travellinginfos.com/*
+// @match        *://*.kontenajaib.xyz/*
 
 // @match        *://*.samehadaku.tv/*
 // @match        *://*.siotong.com/*
@@ -62,7 +63,7 @@ $(document).ready(function () {
     } else if (document.documentURI.match(/oploverz.in\//g)) {
         tipe = 'klik';
         $("div.list-download").find("a").each(function () {
-            if ($(this).attr("href").match(/travellinginfos.com\/\?r=/g)) {
+            if ($(this).attr("href").match(/\/\?r=/g)) {
                 str = atob($(this).attr("href").split("r=")[1]);
                 $(this).attr("href", str);
             }
