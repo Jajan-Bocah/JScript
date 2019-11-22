@@ -100,7 +100,7 @@ $(document).ready(function () {
             str = getBy("Tag", "script")[6].text;
             link = (str.split('window.location="')[1].split('";'))[0];
         }
-    } else if (document.documentURI.match(/(travellinginfos.com|ljutkeunvpn.blogspot.com\/p\/)/g)) {
+    } else if (document.documentURI.match(/(travellinginfos.com|kontenajaib.xyz|ljutkeunvpn.blogspot.com\/p\/)/g)) {
         if (document.documentURI.match(/\?r=/g)) {
             link = atob(document.documentURI.split('r=')[1]);
         } else if (document.documentURI.match(/\?url=/g)) {
