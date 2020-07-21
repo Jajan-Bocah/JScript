@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Klik
 // @namespace    http://j.mp/au_ah_gelap
-// @version      1.3.18
+// @version      1.3.19
 // @description  Auto Klik oploverz, samehadaku, anoboy, dkk
 // @author       eZee
 // @icon         https://graph.facebook.com/1750572307/picture
@@ -35,7 +35,7 @@
 // @match        *://*.ljutkeunvpn.blogspot.com/p/*
 
 // @match        *://*.zippyshare.com/v/*
-// @match        *://drive.google.com/*
+// @match        *://*.google.com/*
 // @match        *://*.zxcfiles.com/download
 // @match        *://*.zxcfiles.xyz/*
 // @match        *://*.mediafire.com/file/*
@@ -59,11 +59,11 @@ var link = null, anu = 0, tipe, jdl, aidi;
 var str, atext, dlv, a, b, c;
 $(document).ready(function () {
     if (document.documentURI.match(/welcome.indihome.co.id/g)) {
-        link = getHref("div.background-box");
+        link = getHref("div.footer-banner");
     } else if (document.documentURI.match(/oploverz.in\//g)) {
         tipe = 'klik';
         $("div.list-download").find("a").each(function () {
-            if ($(this).attr("href").match(/\/\?r=/g)) {
+            if ($(this).attr("href").match(/\?r=/g)) {
                 str = atob($(this).attr("href").split("r=")[1]);
                 $(this).attr("href", str);
             }
@@ -98,7 +98,12 @@ $(document).ready(function () {
             link = (str.split('="')[1].split('",'))[0];
         } else {
             str = getBy("Tag", "script")[6].text;
-            link = (str.split('window.location="')[1].split('";'))[0];
+            if (str.match(/window\.location/)) {
+                link = (str.split('window.location="')[1].split('";'))[0];
+            } else {
+                str = getBy("Tag", "script")[5].text;
+                link = (str.split(';$("a.redirect").attr("href","')[1].split('")'))[0];
+            }
         }
     } else if (document.documentURI.match(/(travellinginfos.com|kontenajaib.xyz|ljutkeunvpn.blogspot.com\/p\/)/g)) {
         if (document.documentURI.match(/\?r=/g)) {
@@ -146,7 +151,7 @@ $(document).ready(function () {
         } else {
             alert("file dihapus?");
         }
-    } else if (document.documentURI.match(/drive.google.com/g)) {
+    } else if (document.documentURI.match(/(drive|docs).google.com/g)) {
         if (document.documentURI.match(/\/uc\?/) || document.documentURI.match(/export/)) {
             if ($("a#uc-download-link").length) {
                 link = $("a#uc-download-link").attr("href");
@@ -226,7 +231,7 @@ $(document).ready(function () {
         }
     } else if (document.documentURI.match(/uptobox.com\//g)) {
         tipe = 'klik';
-        if($("span.red").length == 0){
+        if ($("span.red").length == 0) {
             if ($("input.download-btn").length) {
                 var a = $("input.download-btn").attr("class").replace("disabled", "");
                 $("input.download-btn").attr("class", a);
@@ -272,9 +277,9 @@ function klik(url, tbl, tp = "dl") {
                 jdul = url.text();
             } else {
                 if (tbl !== "") {
-                    jdul = tbl
+                    jdul = tbl;
                 } else
-                    jdul = url
+                    jdul = url;
             }
             document.title = 'Mencet Tombol "' + jdul + '"';
         }
@@ -289,7 +294,7 @@ function sambit(btn, tbl) {
             jdul = tbl.text();
         } else {
             if (tbl !== "") {
-                jdul = tbl
+                jdul = tbl;
             } else
                 jdul = btn;
             document.title = 'Submit Form "' + jdul + '"';
